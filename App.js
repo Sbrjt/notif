@@ -1,6 +1,6 @@
 import * as Notifications from 'expo-notifications'
-import { useEffect } from 'react'
-import { Button, View } from 'react-native'
+import { useEffect, useState } from 'react'
+import { Button, View, Text } from 'react-native'
 
 Notifications.setNotificationHandler({
 	handleNotification: async () => ({
@@ -10,6 +10,7 @@ Notifications.setNotificationHandler({
 })
 
 export default function App() {
+	const [response, setResponse] = useState('')
 	useEffect(() => {
 		const setupNotifications = async () => {
 			await Notifications.requestPermissionsAsync()
@@ -37,6 +38,7 @@ export default function App() {
 			(response) => {
 				if (response.actionIdentifier === 'input') {
 					console.log(response.userText)
+					setResponse(response.userText)
 				}
 			}
 		)
@@ -59,6 +61,7 @@ export default function App() {
 	return (
 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 			<Button title='Trigger Notification' onPress={triggerNotification} />
+			<Text>response: {response}</Text>
 		</View>
 	)
 }
