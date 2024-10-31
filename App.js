@@ -24,7 +24,7 @@ export default function App() {
 						placeholder: 'Enter text...'
 					},
 					options: {
-						opensAppToForeground: false
+						opensAppToForeground: true
 					}
 				}
 			])
@@ -36,7 +36,6 @@ export default function App() {
 		const subscription = Notifications.addNotificationResponseReceivedListener(
 			(response) => {
 				if (response.actionIdentifier === 'input') {
-					console.log(response)
 					console.log(response.userText)
 				}
 			}
